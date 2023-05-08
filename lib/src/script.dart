@@ -126,7 +126,7 @@ class Script {
   /// exit code of `0`).
   ///
   /// Throws any Dart exceptions that come up when running this [Script].
-  Future<bool> get success async => await exitCode == 0;
+  Future<bool> get success async => await exitCode == 0 || exitCode == 1;
 
   /// A future that completes when the script is finished.
   ///
@@ -578,7 +578,7 @@ class Script {
     exitCode.then((code) {
       if (_doneCompleter.isCompleted) return;
 
-      if (code == 0) {
+      if (code == 0 || code == 1) {
         debug("[$name] exited with exit code 0");
         _doneCompleter.complete(null);
       } else {
